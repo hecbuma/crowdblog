@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'state_machine'
   s.add_dependency 'strong_parameters'
   s.add_dependency 'acts-as-taggable-on', '~>2.1.0'
+  s.add_dependency 'carrierwave'
 
   s.add_development_dependency 'autotest'
   s.add_development_dependency 'autotest-growl'

@@ -14,9 +14,10 @@ module  Crowdblog
     attr_accessible :title, :body, :updated_by, :ready_for_review, :transition
 
     #TODO: move to decorator
-    attr_accessible :cintillo, :resumen, :category_id, :tag_list
+    attr_accessible :cintillo, :resumen, :category_id, :tag_list, :image, :remote_image_url
     acts_as_taggable
     belongs_to :category
+    mount_uploader :image, ImageUploader
 
 
     LEGACY_TITLE_REGEXP = /(\d+-\d+-\d+)-(.*)/
