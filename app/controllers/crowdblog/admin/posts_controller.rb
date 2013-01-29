@@ -42,6 +42,7 @@ module Crowdblog
       end
 
       def edit
+        @categories = Category.all
       end
 
       def update
@@ -62,7 +63,9 @@ module Crowdblog
       end
 
       def post_params
-        params.require(:post).permit(:title, :body, :updated_by, :ready_for_review, :transition)
+        # params.require(:post).permit(:title, :body, :updated_by, :ready_for_review, :transition)
+        #TODO move to decorator
+        params.require(:post).permit(:title, :body, :cintillo, :resumen, :category_id, :tag_list, :updated_by, :ready_for_review, :transition)
       end
     end
   end

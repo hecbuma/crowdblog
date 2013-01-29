@@ -13,6 +13,12 @@ module  Crowdblog
     attr_accessor :transition
     attr_accessible :title, :body, :updated_by, :ready_for_review, :transition
 
+    #TODO: move to decorator
+    attr_accessible :cintillo, :resumen, :category_id, :tag_list
+    acts_as_taggable
+    belongs_to :category
+
+
     LEGACY_TITLE_REGEXP = /(\d+-\d+-\d+)-(.*)/
 
     state_machine initial: :drafted do
