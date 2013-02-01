@@ -18,6 +18,7 @@ module  Crowdblog
     acts_as_taggable
     belongs_to :category
     mount_uploader :image, ImageUploader
+    has_many :home_sections, :through => :section_posts
 
 
     LEGACY_TITLE_REGEXP = /(\d+-\d+-\d+)-(.*)/
