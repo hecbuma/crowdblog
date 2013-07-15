@@ -11,7 +11,7 @@ module  Crowdblog
     delegate :year, to: :published_at
 
     attr_accessor :transition
-    attr_accessible :title, :body, :updated_by, :ready_for_review, :transition, :related_attributes
+    attr_accessible :title, :body, :updated_by, :ready_for_review, :transition, :related_attributes, :picture_only
 
     #TODO: move to decorator
     attr_accessible :cintillo, :resumen, :category_id, :tag_list, :image, :remote_image_url
