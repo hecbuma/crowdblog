@@ -11,7 +11,7 @@ module  Crowdblog
     delegate :year, to: :published_at
 
     attr_accessor :transition
-    attr_accessible :title, :body, :updated_by, :ready_for_review, :transition
+    attr_accessible :title, :body, :updated_by, :ready_for_review, :transition, :related_attributes
 
     #TODO: move to decorator
     attr_accessible :cintillo, :resumen, :category_id, :tag_list, :image, :remote_image_url
@@ -20,6 +20,9 @@ module  Crowdblog
     mount_uploader :image, ImageUploader
     has_many :section_posts
     has_many :home_sections, :through => :section_posts
+
+    has_many :related, :class_name => "Post", :foreign_key => "related_id"
+    accepts_nested_attributes_for :related, allow_destroy: true
 
 
     LEGACY_TITLE_REGEXP = /(\d+-\d+-\d+)-(.*)/
