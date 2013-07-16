@@ -24,6 +24,7 @@ module  Crowdblog
     has_many :related, :class_name => "Post", :foreign_key => "related_id"
     accepts_nested_attributes_for :related, allow_destroy: true
 
+    after_save :reindex
 
     LEGACY_TITLE_REGEXP = /(\d+-\d+-\d+)-(.*)/
 
@@ -128,6 +129,10 @@ module  Crowdblog
     scope :for_history,   last_published(13)
     scope :all_for_feed,  last_published(15)
 
+
+    def reindex
+      self.index!
+    end
 
     # INSTANCE METHODS
     def allowed_to_update_permalink?
