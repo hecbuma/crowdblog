@@ -72,6 +72,15 @@ module  Crowdblog
         transition all => :published
       end
     end
+    searchable do
+      text :title, :body
+      string :state
+      time :published_at
+      boolean :picture_only
+      string :category_name do
+        category.name if category
+      end
+    end
 
     # CLASS METHODS
     class << self
@@ -131,6 +140,14 @@ module  Crowdblog
 
     def formatted_published_date
       published_at.strftime("%b %d, %Y")
+    end
+
+    def hour
+      published_at.in_time_zone.strftime('%I:%M %p')
+    end
+
+    def date_and_hour
+      I18n.l published_at.in_time_zone, format: :special
     end
 
     def html_body
