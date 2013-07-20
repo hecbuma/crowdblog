@@ -128,6 +128,7 @@ module  Crowdblog
     scope :for_index,     last_published(20)
     scope :for_history,   last_published(13)
     scope :all_for_feed,  last_published(15)
+    scope :by_join_date,  published.order("published_at DESC")
 
 
     def reindex
