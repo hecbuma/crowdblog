@@ -1,5 +1,6 @@
+# dato del dia
 module Crowdblog
-  class WeatherNote < ActiveRecord::Base
+  class DodNote < ActiveRecord::Base
     attr_accessible :balazo, :portada_id, :title, :post_id
 
     belongs_to :post, :class_name => "Post", :foreign_key => "post_id"
