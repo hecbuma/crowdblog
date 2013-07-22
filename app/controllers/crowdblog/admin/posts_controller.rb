@@ -8,6 +8,7 @@ module Crowdblog
 
       def new
         attributes = params[:type] == 'vlog' ? {vlog: 'true'} : {}
+        attributes = params[:type] == 'opinion' ? {opinion: 'true'} : {}
         @post = Post.new attributes
         @post.author = current_user
         @post.save!

@@ -11,7 +11,8 @@ module  Crowdblog
     delegate :year, to: :published_at
 
     attr_accessor :transition
-    attr_accessible :title, :body, :updated_by, :ready_for_review, :transition, :related_attributes, :picture_only, :vlog
+    attr_accessible :title, :body, :updated_by, :ready_for_review, :transition, :related_attributes, :picture_only,
+                    :vlog, :opinion
 
     #TODO: move to decorator
     attr_accessible :cintillo, :resumen, :category_id, :tag_list, :image, :remote_image_url
@@ -80,6 +81,7 @@ module  Crowdblog
       time :published_at
       boolean :picture_only
       boolean :vlog
+      boolean :opinion
       string :category_name do
         category.name if category
       end
@@ -125,12 +127,24 @@ module  Crowdblog
         order(:state)
       end
 
+      #TODO: remove this super ugly method and implement STI
       def by_type(type)
         if type == 'vlog'
-          where(vlog: true)
+          vlog = true
+          vlog_op = '='
         else
-          where(vlog: nil)
+          vlog = nil
+          vlog_op = 'IS'
         end
+        if type == 'opinion'
+          opinion = true
+          opinion_op = '='
+        else
+          opinion = nil
+          opinion_op = 'IS'
+        end
+
+        where("vlog #{vlog_op} ? AND opinion #{opinion_op} ?", vlog, opinion)
       end
     end
 

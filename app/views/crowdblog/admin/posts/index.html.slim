@@ -2,9 +2,9 @@
   h1 Posts
 
   .row
-    .span3.new-link
+    .span2.new-link
       = link_to 'New Post', crowdblog.new_admin_post_path(type: params[:type]), :class => "btn btn-primary btn-small"
-    .span3.offset6
+    .span4.offset6
       ul.nav.nav-pills
         li class="#{@state ? '' : 'active'}"
           = link_to 'All', crowdblog.admin_posts_path
@@ -14,6 +14,8 @@
           = link_to 'Drafted', crowdblog.admin_posts_by_state_path('drafted')
         li class="#{@state == 'drafted' ? 'active' : ''}"
           = link_to 'Vlogs', crowdblog.admin_posts_by_state_path('any', type: 'vlog')
+        li class="#{@state == 'drafted' ? 'active' : ''}"
+          = link_to 'Opinion', crowdblog.admin_posts_by_state_path('any', type: 'opinion')
 
   #posts.container
     table.table.table-striped= render :partial => 'post', :collection => @posts
