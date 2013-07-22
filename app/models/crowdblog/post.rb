@@ -11,7 +11,7 @@ module  Crowdblog
     delegate :year, to: :published_at
 
     attr_accessor :transition
-    attr_accessible :title, :body, :updated_by, :ready_for_review, :transition, :related_attributes, :picture_only
+    attr_accessible :title, :body, :updated_by, :ready_for_review, :transition, :related_attributes, :picture_only, :vlog
 
     #TODO: move to decorator
     attr_accessible :cintillo, :resumen, :category_id, :tag_list, :image, :remote_image_url
@@ -73,11 +73,13 @@ module  Crowdblog
         transition all => :published
       end
     end
+
     searchable do
       text :title, :body
       string :state
       time :published_at
       boolean :picture_only
+      boolean :vlog
       string :category_name do
         category.name if category
       end
@@ -121,6 +123,14 @@ module  Crowdblog
 
       def ordered_by_state
         order(:state)
+      end
+
+      def by_type(type)
+        if type == 'vlog'
+          where(vlog: true)
+        else
+          where(vlog: nil)
+        end
       end
     end
 

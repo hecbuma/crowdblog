@@ -5,7 +5,7 @@ Crowdblog::Engine.routes.draw do
     resources :authors, only: :index
 
     match 'posts/:state', :to => 'posts#index',
-      :constraints => { :state => /(published|drafted)/ },
+      :constraints => { :state => /(published|drafted|any)/ },
       :as => 'posts_by_state',
       :via => :get
 

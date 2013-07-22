@@ -7,7 +7,8 @@ module Crowdblog
       before_filter :load_post, :only => [ :edit, :update, :destroy ]
 
       def new
-        @post = Post.new
+        attributes = params[:type] == 'vlog' ? {vlog: 'true'} : {}
+        @post = Post.new attributes
         @post.author = current_user
         @post.save!
         redirect_to edit_admin_post_path(@post)
@@ -16,8 +17,9 @@ module Crowdblog
 
       def index
         @state = params[:state]
-        @posts = Post.scoped_for(current_user).for_admin_index
-        @posts = @posts.with_state(@state) if @state
+        @posts = Post.scoped_for(current_user).for_admin_index.by_type(params[:type])
+        @posts = @posts.with_state(@state) if @state && @state != 'any'
+
         respond_with @posts
       end
 
