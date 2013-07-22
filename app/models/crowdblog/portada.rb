@@ -3,7 +3,8 @@ module Crowdblog
     attr_accessor :transition
     attr_accessible :breaking_news, :publication, :home_sections_attributes, :section_posts_attributes,
                     :soundcloud_frame, :resumen_on_top, :weather_notes_attributes, :special_note_id,
-                    :special_note_attributes, :transition, :dod_notes_attributes, :police_notes_attributes, :post_id
+                    :special_note_attributes, :transition, :dod_notes_attributes, :police_notes_attributes,
+                    :quote_notes_attributes
     has_many :home_sections, :dependent => :destroy
     accepts_nested_attributes_for :home_sections, allow_destroy: true
 
@@ -13,6 +14,8 @@ module Crowdblog
     accepts_nested_attributes_for :dod_notes, allow_destroy: true
     has_many :police_notes, :dependent => :destroy
     accepts_nested_attributes_for :police_notes, allow_destroy: true
+    has_many :quote_notes, :dependent => :destroy
+    accepts_nested_attributes_for :quote_notes, allow_destroy: true
 
     belongs_to :special_note, :class_name => "Post", :foreign_key => "special_note_id"
     accepts_nested_attributes_for :special_note, allow_destroy: true
