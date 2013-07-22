@@ -7,8 +7,9 @@ module Crowdblog
       before_filter :load_post, :only => [ :edit, :update, :destroy ]
 
       def new
-        attributes = params[:type] == 'vlog' ? {vlog: 'true'} : {}
-        attributes = params[:type] == 'opinion' ? {opinion: 'true'} : {}
+        attributes = {}
+        attributes = attributes.merge params[:type] == 'vlog' ? {vlog: 'true'} : {}
+        attributes = attributes.merge params[:type] == 'opinion' ? {opinion: 'true'} : {}
         @post = Post.new attributes
         @post.author = current_user
         @post.save!
