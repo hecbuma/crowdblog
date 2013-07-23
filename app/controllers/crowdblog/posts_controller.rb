@@ -1,7 +1,7 @@
 module Crowdblog
   class PostsController < ApplicationController
     def index
-      @posts = Post.published_and_ordered
+      @posts = Crowdblog::Post.published_and_ordered
     end
   end
 end

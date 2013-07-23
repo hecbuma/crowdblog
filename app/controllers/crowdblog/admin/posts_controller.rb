@@ -40,7 +40,7 @@ module Crowdblog
       end
 
       def show
-        @post = Post.includes(:assets).find(params[:id])
+        @post = Crowdblog::Post.includes(:assets).find(params[:id])
         respond_to do |format|
           format.json { render json: @post.to_json(include: :assets) }
         end
