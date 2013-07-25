@@ -4,7 +4,7 @@ module Crowdblog
     attr_accessible :breaking_news, :publication, :home_sections_attributes, :section_posts_attributes,
                     :soundcloud_frame, :resumen_on_top, :weather_notes_attributes, :special_note_id,
                     :special_note_attributes, :transition, :dod_notes_attributes, :police_notes_attributes,
-                    :quote_notes_attributes, :post_id
+                    :quote_notes_attributes, :post_id, :plumas_on_top, :plumas, :plumas_title, :plumas_author
     has_many :home_sections, :dependent => :destroy
     accepts_nested_attributes_for :home_sections, allow_destroy: true
 
