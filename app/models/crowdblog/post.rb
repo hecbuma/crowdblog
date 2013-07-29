@@ -26,6 +26,7 @@ module  Crowdblog
     accepts_nested_attributes_for :related, allow_destroy: true
 
     after_save :reindex
+    after_save :reindex
 
     LEGACY_TITLE_REGEXP = /(\d+-\d+-\d+)-(.*)/
 
