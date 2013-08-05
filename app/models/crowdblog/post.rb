@@ -12,7 +12,7 @@ module  Crowdblog
 
     attr_accessor :transition
     attr_accessible :title, :body, :updated_by, :ready_for_review, :transition, :related_attributes, :picture_only,
-                    :vlog, :opinion
+                    :vlog, :opinion, :short_url
 
     #TODO: move to decorator
     attr_accessible :cintillo, :resumen, :category_id, :tag_list, :image, :remote_image_url
@@ -25,7 +25,6 @@ module  Crowdblog
     has_many :related, :class_name => "Post", :foreign_key => "related_id"
     accepts_nested_attributes_for :related, allow_destroy: true
 
-    after_save :reindex
     after_save :reindex
 
     LEGACY_TITLE_REGEXP = /(\d+-\d+-\d+)-(.*)/
@@ -53,6 +52,7 @@ module  Crowdblog
 
       before_transition on: :publish do |post, transition|
         post.published_at ||= Time.now
+        post.generate_short_url
       end
 
       before_transition on: :draft do |post, transition|
@@ -205,6 +205,16 @@ module  Crowdblog
       if user.is_publisher?
         self.publisher = user
         self.send(transition)
+      end
+    end
+
+    def generate_short_url
+      url = Rails.application.routes.url_helpers.post_url(*self.url_params)
+      if Rails.env.production?
+        short = Shortener.shorten(url)
+        self.short_url = short.short_url
+      else
+        self.short_url = url
       end
     end
 
