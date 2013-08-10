@@ -209,7 +209,7 @@ module  Crowdblog
     end
 
     def generate_short_url
-      unless post.published_at.nil? || post.id.nil? || post.short_url || post.permalink.nil?
+      unless published_at.nil? || id.nil? || short_url || permalink.nil?
         url = Rails.application.routes.url_helpers.post_url(*self.url_params)
         if Rails.env.production?
           short = Shortener.shorten(url)
