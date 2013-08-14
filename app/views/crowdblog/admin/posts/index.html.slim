@@ -18,8 +18,9 @@
           = link_to 'Opinion', crowdblog.admin_posts_by_state_path('any', type: 'opinion')
 
   #posts.container
+    = will_paginate @posts, previous_label: 'Prev', next_label: 'Next'
     table.table.table-striped= render :partial => 'post', :collection => @posts
-
+    = will_paginate @posts, previous_label: 'Prev', next_label: 'Next'
   - content_for :scripts do
     javascript:
         $(function() {

@@ -19,7 +19,7 @@ module Crowdblog
 
       def index
         @state = params[:state]
-        @posts = Post.scoped_for(current_user).for_admin_index.by_type(params[:type])
+        @posts = Post.scoped_for(current_user).for_admin_index.paginate(:page => params[:page], :per_page => 50).by_type(params[:type])
         @posts = @posts.with_state(@state) if @state && @state != 'any'
 
         respond_with @posts
