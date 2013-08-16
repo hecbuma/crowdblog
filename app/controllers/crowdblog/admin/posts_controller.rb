@@ -19,8 +19,14 @@ module Crowdblog
 
       def index
         @state = params[:state]
-        @posts = Post.scoped_for(current_user).for_admin_index.paginate(:page => params[:page], :per_page => 50).by_type(params[:type])
-        @posts = @posts.with_state(@state) if @state && @state != 'any'
+        # @posts = Post.scoped_for(current_user).for_admin_index.paginate(:page => params[:page], :per_page => 50).by_type(params[:type])
+        # @posts = @posts.with_state(@state) if @state && @state != 'any'
+        author = current_user.is_publisher? ? nil : current_user.id
+        state = params[:state] && params[:state] != 'any' ? params[:state] : nil
+        vlog = params[:type] == 'vlog' ? 'vlog' : nil
+        opinion = params[:type] == 'opinion' ? 'opinion' : nil
+        # @posts = ::Post.query('',false).results
+        @posts = ::Post.query_for_admin('',author, 50, params[:page], state, false, vlog, opinion).results
 
         respond_with @posts
       end

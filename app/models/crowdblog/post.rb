@@ -86,6 +86,7 @@ module  Crowdblog
       string :category_name do
         category.name if category
       end
+      string :author_id
     end
 
     # CLASS METHODS
@@ -235,5 +236,6 @@ module  Crowdblog
     def url_params
       [self.year, self.month, self.day, self.permalink, 'html']
     end
+
   end
 end
